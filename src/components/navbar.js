@@ -1,22 +1,59 @@
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from "../components/img/2.png";
 import logo2 from "../components/img/3.png";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+
+import { useDispatch } from "react-redux";
+import { onLogout } from "../api/auth";
+import { unauthenticateUser } from "../redux/slices/authSlice";
 
 const Navbar = () => {
   const { isAuth } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const logout = async () => {
+    try {
+      await onLogout();
+
+      dispatch(unauthenticateUser());
+      localStorage.removeItem("isAuth");
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
+    // <Box sx={{ flexGrow: 1 }}>
+    //   <AppBar position="static">
+    //     <Toolbar>
+    //       <IconButton
+    //         size="large"
+    //         edge="start"
+    //         color="inherit"
+    //         aria-label="menu"
+    //         sx={{ mr: 2 }}
+    //       >
+    //         <MenuIcon />
+    //       </IconButton>
+    //       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+    //         News
+    //       </Typography>
+    //       <Button color="inherit">Login</Button>
+    //     </Toolbar>
+    //   </AppBar>
+    // </Box>
+
     <nav className="navbar navbar-light bg-light">
       <div className="container">
         <a class="navbar-brand" href="#">
-          <img
-            src={logo2}
-            alt="Logo"
-            height="100px"
-
-            // class="d-inline-block align-text-top"
-          />
+          <img src={logo2} alt="Logo" height="100px" class="m" />
           <img
             src={logo}
             alt="Logo"
@@ -24,27 +61,31 @@ const Navbar = () => {
             // class="d-inline-block align-text-top"
           />
         </a>
-        <div>
-          <NavLink to="/">
-            <span className="navbar-brand mb-0 h1">Home</span>
-          </NavLink>
-        </div>
 
         {isAuth ? (
           <div>
-            <NavLink to="/dashboard" className="mx-3">
-              <span>Dashboard</span>
-            </NavLink>
+            <Link to="/dashboard">
+              <Button variant="outlined" className="mx-3">
+                Dashboard
+              </Button>
+            </Link>
+            <Button variant="outlined" color="error" onClick={() => logout()}>
+              Logout
+            </Button>
           </div>
         ) : (
           <div>
-            <NavLink to="/login">
-              <span>Login</span>
-            </NavLink>
+            <Link to="/login">
+              <Button variant="outlined" className="mx-3">
+                Login
+              </Button>
+            </Link>
 
-            <NavLink to="/register" className="mx-3">
-              <span>Register</span>
-            </NavLink>
+            <Link to="/register">
+              <Button variant="outlined" className="mx-3">
+                Register
+              </Button>
+            </Link>
           </div>
         )}
       </div>

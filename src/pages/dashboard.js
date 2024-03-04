@@ -44,11 +44,11 @@ const Dashboard = () => {
     <div>
       <Layout>
         <h1>Dashboard</h1>
-        {/* <h2>{protectedData}</h2> */}
+        <h2>{protectedData}</h2>
 
-        <button onClick={() => logout()} className="btn btn-primary">
+        {/* <button onClick={() => logout()} className="btn btn-primary">
           Logout
-        </button>
+        </button> */}
       </Layout>
     </div>
   );
