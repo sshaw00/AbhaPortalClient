@@ -72,11 +72,11 @@ const Navbar = () => {
               </Button>
             </Link>
 
-            {/* <Link to="/register">
+            <Link to="/register">
               <Button variant="outlined" className="mx-3">
                 Register
               </Button>
-            </Link> */}
+            </Link>
           </div>
         )}
       </nav>
