@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
-import logo from "../components/img/2.png";
-import logo2 from "../components/img/3.png";
+import logo from "../components/img/logo-new-draft.png";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import "./nav.css";
 
 import { useDispatch } from "react-redux";
 import { onLogout } from "../api/auth";
@@ -49,18 +49,9 @@ const Navbar = () => {
     //     </Toolbar>
     //   </AppBar>
     // </Box>
-
-    <nav className="navbar navbar-light bg-light">
-      <div className="container">
-        <a class="navbar-brand" href="#">
-          <img src={logo2} alt="Logo" height="100px" class="m" />
-          <img
-            src={logo}
-            alt="Logo"
-            height="100px"
-            // class="d-inline-block align-text-top"
-          />
-        </a>
+    <header>
+      <nav className="navbar bg-light">
+        <img src={logo} alt="logo" className="logo" />
 
         {isAuth ? (
           <div>
@@ -81,15 +72,15 @@ const Navbar = () => {
               </Button>
             </Link>
 
-            <Link to="/register">
+            {/* <Link to="/register">
               <Button variant="outlined" className="mx-3">
                 Register
               </Button>
-            </Link>
+            </Link> */}
           </div>
         )}
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 

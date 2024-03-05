@@ -3,6 +3,8 @@ import { onLogin } from "../api/auth";
 import Layout from "../components/layout";
 import { useDispatch } from "react-redux";
 import { authenticateUser } from "../redux/slices/authSlice";
+import "./login.css";
+import { FaUser, FaLock } from "react-icons/fa";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -32,47 +34,53 @@ const Login = () => {
 
   return (
     <Layout>
-      <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
-        <h1>Login</h1>
+      <body>
+        <div className="bdy">
+          <div className="wrapper">
+            <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
+              <h1>Login</h1>
 
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            onChange={(e) => onChange(e)}
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={values.email}
-            placeholder="test@gmail.com"
-            required
-          />
+              <div className=" input-box">
+                {/* <label htmlFor="email" className="form-label">
+              Email address
+            </label> */}
+                <input
+                  onChange={(e) => onChange(e)}
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={values.email}
+                  placeholder="Email ID"
+                  required
+                />
+                <FaUser className="icon" />
+              </div>
+
+              <div className="input-box">
+                {/* <label htmlFor="password" className="form-label">
+              Password
+            </label> */}
+                <input
+                  onChange={(e) => onChange(e)}
+                  type="password"
+                  value={values.password}
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+                <FaLock className="icon" />
+              </div>
+
+              <div style={{ color: "red", margin: "10px 0" }}>{error}</div>
+
+              <button type="submit" className="button">
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
-
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            onChange={(e) => onChange(e)}
-            type="password"
-            value={values.password}
-            className="form-control"
-            id="password"
-            name="password"
-            placeholder="passwod"
-            required
-          />
-        </div>
-
-        <div style={{ color: "red", margin: "10px 0" }}>{error}</div>
-
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
+      </body>
     </Layout>
   );
 };
