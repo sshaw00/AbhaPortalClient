@@ -4,19 +4,22 @@ axios.defaults.withCredentials = true;
 
 export async function onRegistration(registrationData) {
   return await axios.post(
-    "http://localhost:8000/api/register",
+    "https://abhaportalserver.onrender.com/api/register",
     registrationData
   );
 }
 
 export async function onLogin(loginData) {
-  return await axios.post(`http://localhost:8000/api/login`, loginData);
+  return await axios.post(
+    `https://abhaportalserver.onrender.com/api/login`,
+    loginData
+  );
 }
 
 export async function onLogout() {
-  return await axios.get("http://localhost:8000/api/logout");
+  return await axios.get("https://abhaportalserver.onrender.com/api/logout");
 }
 
 export async function fetchProtectedInfo() {
-  return await axios.get("http://localhost:8000/api/protected");
+  return await axios.get("https://abhaportalserver.onrender.com/api/protected");
 }
