@@ -1,5 +1,4 @@
 import axios from "axios";
-
 axios.defaults.withCredentials = true;
 
 export async function onRegistration(registrationData) {
@@ -11,7 +10,7 @@ export async function onRegistration(registrationData) {
 
 export async function onLogin(loginData) {
   return await axios.post(
-    `https://abhaportalserver.onrender.com/api/login`,
+    "https://abhaportalserver.onrender.com/api/login",
     loginData
   );
 }
