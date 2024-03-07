@@ -1,8 +1,8 @@
 body {
-    /* background-color: #7b0745; */
+    background-color: #7b0745;
     height: 100%;
      /* The image used */
-     background-image: url("../components/img/IMG_20240219_114639172.jpg");
+     /* background-image: url("../components/img/IMG_20240219_114639172.jpg"); */
   
      /* background-position: center; */
      background-repeat: no-repeat;
