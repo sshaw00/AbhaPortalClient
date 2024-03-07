@@ -56,26 +56,34 @@ const Navbar = () => {
         {isAuth ? (
           <div>
             <Link to="/dashboard">
-              <Button variant="outlined" className="mx-3">
-                Dashboard
-              </Button>
+              <div className="btn">
+                <Button variant="outlined" className="mx-3">
+                  Dashboard
+                </Button>
+              </div>
             </Link>
-            <Button variant="outlined" color="error" onClick={() => logout()}>
-              Logout
-            </Button>
+            <div className="btn">
+              <Button variant="outlined" color="error" onClick={() => logout()}>
+                Logout
+              </Button>
+            </div>
           </div>
         ) : (
           <div>
             <Link to="/login">
-              <Button variant="outlined" className="mx-3">
-                Login
-              </Button>
+              <div className="btn">
+                <Button variant="outlined" className="mx-3">
+                  Login
+                </Button>
+              </div>
             </Link>
 
             <Link to="/register">
-              <Button variant="outlined" className="mx-3">
-                Register
-              </Button>
+              <div className="btn">
+                <Button variant="outlined" className="mx-3">
+                  Register
+                </Button>
+              </div>
             </Link>
           </div>
         )}
