@@ -9,6 +9,19 @@ body {
      background-size: 1540px 800px;
 }
 
+.img2{
+    height: 615px;
+    width: 1536px;
+    margin-left: 0 ;
+
+}
+
+.container{
+    --bs-gutter-x:0;
+    margin-left: 0;
+    margin-right: 0;
+
+}
 
 .wrapper{
     width: 420px;
