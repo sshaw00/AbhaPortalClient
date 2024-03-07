@@ -3,6 +3,7 @@ import { onRegistration } from "../api/auth";
 import Layout from "../components/layout";
 import "./login.css";
 import { FaUser, FaLock } from "react-icons/fa";
+import logo from "../components/img/IMG_20240219_114639172.jpg";
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -33,46 +34,45 @@ const Register = () => {
 
   return (
     <Layout>
-      <body>
-        <div className="wrapper">
-          <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
-            <h1>Register</h1>
+      <img src={logo} className="img2" />
+      <div className="wrapper">
+        <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
+          <h1>Register</h1>
 
-            <div className="input-box">
-              <input
-                onChange={(e) => onChange(e)}
-                type="email"
-                id="email"
-                name="email"
-                value={values.email}
-                placeholder="Email ID"
-                required
-              />
-              <FaUser className="icon" />
-            </div>
+          <div className="input-box">
+            <input
+              onChange={(e) => onChange(e)}
+              type="email"
+              id="email"
+              name="email"
+              value={values.email}
+              placeholder="Email ID"
+              required
+            />
+            <FaUser className="icon" />
+          </div>
 
-            <div className="input-box">
-              <input
-                onChange={(e) => onChange(e)}
-                type="password"
-                value={values.password}
-                id="password"
-                name="password"
-                placeholder="Password"
-                required
-              />
-              <FaLock className="icon" />
-            </div>
+          <div className="input-box">
+            <input
+              onChange={(e) => onChange(e)}
+              type="password"
+              value={values.password}
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <FaLock className="icon" />
+          </div>
 
-            <div style={{ color: "red", margin: "10px 0" }}>{error}</div>
-            <div style={{ color: "green", margin: "10px 0" }}>{success}</div>
+          <div style={{ color: "red", margin: "10px 0" }}>{error}</div>
+          <div style={{ color: "green", margin: "10px 0" }}>{success}</div>
 
-            <button type="submit" className="button">
-              Submit
-            </button>
-          </form>
-        </div>
-      </body>
+          <button type="submit" className="button">
+            Submit
+          </button>
+        </form>
+      </div>
     </Layout>
   );
 };
