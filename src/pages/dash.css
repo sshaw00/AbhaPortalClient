@@ -1,0 +1,94 @@
+body {
+    background-color: #7b0745;
+   
+}
+
+
+.wrapper{
+    width: 420px;
+    height:520px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(2.9px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: fixed;
+    top:220px;
+    left: 557px;
+    
+    padding: 50px 40px;
+ 
+    /* z-index: 2;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+     width: 420px;
+    height: 380px;
+   
+    position: absolute;
+    margin-left: 1090px;
+    transform: translate(0%,-100%);
+    border-radius: 10px;
+    padding: 25px;
+    position: fixed;
+    z-index: 1;
+   
+    width: 420px;
+   
+    color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px; */
+} 
+
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+}
+.wrapper .input-box{
+    position: relative;
+    width: 100%;
+    height:50px;
+    
+    margin: 30px 0;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #000;
+    padding: 20px 45px 28px 28px;
+    font-weight:bold;
+}
+
+.input-box input::placeholder{
+    color: #000;
+    font-weight:bold;
+}
+
+.input-box .icon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.wrapper .button{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow:0 0 10px rgba(0,0,0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}

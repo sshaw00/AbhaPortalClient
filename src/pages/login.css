@@ -1,0 +1,254 @@
+body {
+    /* background-color: #7b0745; */
+    background: url('../components/img/IMG_20240219_090620519_HDR.jpg') no-repeat center fixed;     
+    background-size: cover;
+  
+            
+}
+
+.container{
+    --bs-gutter-x:0;
+    margin-left: 0;
+    margin-right: 0;
+
+}
+
+.fpwrapper{
+   
+    width: 420px;
+    height:350px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(2.9px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    
+    padding: 50px 40px;}
+
+.wrapper{
+   
+    width: 420px;
+    height:420px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(2.9px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    
+    padding: 50px 40px;
+ 
+
+} 
+
+.fpwrapper h1{
+    /* font-size: 36px; */
+    /* text-align: center; */
+    text-align: center;
+    margin-bottom: 20px;
+}
+.fpwrapper .input-box{
+    position: relative;
+    width: 100%;
+    height:50px;
+    
+    margin: 30px 0;
+}
+
+.wrapper h1{
+    /* font-size: 36px; */
+    /* text-align: center; */
+    text-align: center;
+    margin-bottom: 20px;
+}
+.wrapper .input-box{
+    position: relative;
+    width: 100%;
+    height:50px;
+    
+    margin: 30px 0;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #000;
+    padding: 20px 45px 28px 28px;
+    font-weight:bold;
+}
+
+.input-box input::placeholder{
+    color: #000;
+    font-weight:bold;
+}
+
+.input-box .icon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.fpwrapper .regbutton{
+    width:100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow:0 0 10px rgba(0,0,0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+
+.wrapper .button2{
+    width: 45%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow:0 0 10px rgba(0,0,0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+span{
+    padding: 10px;
+}
+
+.wrapper .button{
+    width: 45%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow:0 0 10px rgba(0,0,0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+
+@media (max-width: 768px) {
+    .wrapper {
+        max-width: 100%;
+    }
+}
+
+.error{
+    font-weight: bold;
+}
+
+/* 
+@media only screen and (max-width: 768px) {
+  
+    .img2{
+        height: 536px;
+        width: 742px;
+        margin-left: 0 ;
+    
+    }
+    .container{
+        --bs-gutter-x:0;
+        margin-left: 0;
+        margin-right: 0;
+    
+    }
+    .wrapper{
+        width: 300px;
+        height:300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(2.9px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: fixed;
+        top:234px;
+        left: 234px;
+        
+        padding: 50px 40px;
+     
+       
+    } 
+    
+    .wrapper h1{
+        font-size: 30px;
+        text-align: center;
+    }
+    .wrapper .input-box{
+        position: relative;
+        width: 100%;
+        height:50px;
+        
+        margin: 10px 0;
+    }
+    
+    .input-box input{
+        width: 100%;
+        height: 30%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(100px);
+        border: 2px solid rgba(255, 255, 255, .2);
+        border-radius: 40px;
+        font-size: 16px;
+        color: #000;
+        padding: 20px 45px 28px 28px;
+        font-weight:bold;
+    }
+    
+    .input-box input::placeholder{
+        color: #000;
+        font-weight:bold;
+    }
+    
+    .input-box .icon{
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+    }
+    
+    .wrapper .button{
+        width: 100%;
+        height: 45px;
+        background: #fff;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow:0 0 10px rgba(0,0,0, .1);
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        font-weight: 700;
+    }
+    
+    
+    
+  } */
