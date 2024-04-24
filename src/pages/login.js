@@ -37,9 +37,8 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="body">
-        {/* <img src={logo} className="img2 col-1" alt="Background-Pic" /> */}
-
+      <div className="bd">
+        <img src={logo} className="img2 col-1" alt="Background-Pic" />
         <div className="wrapper col-2">
           <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
             <h1>Login</h1>
@@ -73,10 +72,7 @@ const Login = () => {
               <FaLock className="icon" />
             </div>
 
-            <div
-              className="error"
-              style={{ color: "red", margin: "20px 20px" }}
-            >
+            <div className="error" style={{ color: "red", margin: "20px 0px" }}>
               {error}
             </div>
 

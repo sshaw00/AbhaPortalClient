@@ -9,3 +9,10 @@
 .navbar{
     padding: 15px;
 }
+
+@media (max-width: 392px) {
+    .btn{
+        padding: 0px;
+    }
+  
+}

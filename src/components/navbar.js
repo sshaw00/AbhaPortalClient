@@ -30,25 +30,6 @@ const Navbar = () => {
   };
 
   return (
-    // <Box sx={{ flexGrow: 1 }}>
-    //   <AppBar position="static">
-    //     <Toolbar>
-    //       <IconButton
-    //         size="large"
-    //         edge="start"
-    //         color="inherit"
-    //         aria-label="menu"
-    //         sx={{ mr: 2 }}
-    //       >
-    //         <MenuIcon />
-    //       </IconButton>
-    //       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-    //         News
-    //       </Typography>
-    //       <Button color="inherit">Login</Button>
-    //     </Toolbar>
-    //   </AppBar>
-    // </Box>
     <header>
       <nav className="navbar bg-light">
         <img src={logo} alt="logo" className="logo" />
@@ -72,7 +53,7 @@ const Navbar = () => {
           <div>
             <Link to="/login">
               <div className="btn">
-                <Button variant="outlined" className="">
+                <Button variant="outlined" className="btn1">
                   Login
                 </Button>
               </div>
@@ -80,7 +61,7 @@ const Navbar = () => {
 
             <Link to="/register">
               <div className="btn">
-                <Button variant="outlined" className="">
+                <Button variant="outlined" className="btn1">
                   Register
                 </Button>
               </div>

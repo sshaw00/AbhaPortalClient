@@ -36,6 +36,7 @@ const Register = () => {
 
   return (
     <Layout>
+      <img src={logo} className="img2 col-1" alt="Background-Pic" />
       <div className="rgwrapper">
         <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
           <h1>Register</h1>
@@ -88,12 +89,12 @@ const Register = () => {
             />
           </div>
 
-          <div className="error" style={{ color: "red", margin: "20px 20px" }}>
+          <div className="error" style={{ color: "red", margin: "10px 0px" }}>
             {error}
           </div>
           <div
             className="error"
-            style={{ color: "green", margin: "20px 20px" }}
+            style={{ color: "green", margin: "10px 10px" }}
           >
             {success}
           </div>

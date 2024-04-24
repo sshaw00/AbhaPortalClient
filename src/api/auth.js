@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 // const { SERVER_URL } = require("../constants/index");
+
 axios.defaults.withCredentials = true;
 
 export async function onRegistration(registrationData) {

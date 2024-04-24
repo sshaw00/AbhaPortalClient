@@ -1,8 +1,8 @@
 body {
-    /* background-color: #7b0745; */
-    background: url('../components/img/IMG_20240219_090620519_HDR.jpg') no-repeat center fixed;     
+    background-color: #7b0745;
+    /* background: url('../components/img/IMG_20240219_090620519_HDR.jpg') no-repeat center fixed;     
     background-size: cover;
-  
+   */
             
 }
 
@@ -13,11 +13,18 @@ body {
 
 }
 
+.img2{
+    width: 100%;
+            height: 100%;
+            object-fit: cover; /* This will make the image cover the entire container, cropping any excess */
+            position: fixed;
+}
+
 .fpwrapper{
    
     width: 420px;
-    height:350px;
-    background: rgba(255, 255, 255, 0.3);
+    height:auto;
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3px);
@@ -34,8 +41,8 @@ body {
 .wrapper{
    
     width: 420px;
-    height:420px;
-    background: rgba(255, 255, 255, 0.3);
+    height:auto;
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3px);
@@ -76,7 +83,7 @@ body {
     position: relative;
     width: 100%;
     height:50px;
-    
+
     margin: 30px 0;
 }
 
@@ -121,19 +128,6 @@ body {
 }
 
 
-.wrapper .button2{
-    width: 45%;
-    height: 45px;
-    background: #fff;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow:0 0 10px rgba(0,0,0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
-}
 
 span{
     padding: 10px;
@@ -152,12 +146,56 @@ span{
     color: #333;
     font-weight: 700;
 }
+.wrapper .button2{
+    width: 45%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow:0 0 10px rgba(0,0,0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
 
 
 @media (max-width: 768px) {
-    .wrapper {
-        max-width: 100%;
+    .wrapper, .fpwrapper, .rgwrapper {
+        max-width: 80%;
     }
+    .wrapper .button{
+        width: 100%;
+        height: 45px;
+        background: #fff;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow:0 0 10px rgba(0,0,0, .1);
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        font-weight: 700;
+    }
+   
+    .wrapper .button2{
+        top: 100px;
+        width: 100%;
+        height: 50px;
+        background: rgba(255, 255, 255, 0);
+        border: #fff    ;
+        
+        border-radius: 40px;
+        box-shadow:0 0 10px rgba(0,0,0, .0);
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+        font-weight: 700;
+        
+    }
+  
 }
 
 .error{

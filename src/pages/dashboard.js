@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProtectedInfo, onLogout } from "../api/auth";
 import Layout from "../components/layout";
+import DashLayout from "../components/dashlayout";
 import { unauthenticateUser } from "../redux/slices/authSlice";
 import "./dash.css";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [protectedData, setProtectedData] = useState(null);
+  const [protectedData, setProtectedData] = useState(true);
 
   const logout = async () => {
     try {

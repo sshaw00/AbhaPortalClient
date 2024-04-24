@@ -22,19 +22,21 @@ const ForgotPassword = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await onForgotPassword(values);
 
     try {
+      const { data } = await onForgotPassword(values);
       setError("");
       setSuccess(data.message);
       setValues({ email: "" });
     } catch (error) {
+      console.log(error.response.data.errors[0].msg);
       setError(error.response.data.errors[0].msg);
       setSuccess("");
     }
   };
   return (
     <Layout>
+      <img src={logo} className="img2 col-1" alt="Background-Pic" />
       <div className="fpwrapper col-2">
         <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
           <center>

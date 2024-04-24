@@ -8,6 +8,7 @@ import logo from "../components/img/IMG_20240219_090620519_HDR.jpg";
 import Button from "@mui/material/Button";
 import { NavLink, Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const ResetPassword = () => {
   const [values, setValues] = useState({
@@ -42,6 +43,7 @@ const ResetPassword = () => {
   };
   return (
     <Layout>
+      <img src={logo} className="img2 col-1" alt="Background-Pic" />
       <div className="fpwrapper col-2">
         <form onSubmit={(e) => onSubmit(e)} className="container mt-3">
           <center>
