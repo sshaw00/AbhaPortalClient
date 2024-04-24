@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
+
 // const { SERVER_URL } = require("../constants/index");
+
+const { SERVER_URL } = require("../constants/index");
 
 axios.defaults.withCredentials = true;
 
 export async function onRegistration(registrationData) {
-  // console.log(SERVER_URL);
   return await axios.post(
     `http://localhost:8000/api/register`,
     registrationData
