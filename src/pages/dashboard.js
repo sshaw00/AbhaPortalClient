@@ -39,15 +39,15 @@ const Dashboard = () => {
   }, []);
 
   return loading ? (
-    <Layout>
+    <DashLayout>
       <h1>Loading...</h1>
-    </Layout>
+    </DashLayout>
   ) : (
     <div>
-      <Layout>
+      <DashLayout>
         <h1>Dashboard</h1>
         <h2>{protectedData}</h2>
-      </Layout>
+      </DashLayout>
     </div>
   );
 };

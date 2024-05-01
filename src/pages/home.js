@@ -5,7 +5,7 @@ import "./login.css";
 const Home = () => {
   return (
     <Layout>
-      <h1></h1>
+      <img src={logo} className="img2 col-1" alt="Background-Pic" />
     </Layout>
   );
 };

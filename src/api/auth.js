@@ -7,12 +7,12 @@ const { SERVER_URL } = require("../constants/index");
 
 axios.defaults.withCredentials = true;
 
-export async function onRegistration(registrationData) {
-  return await axios.post(
-    `http://localhost:8000/api/register`,
-    registrationData
-  );
-}
+// export async function onRegistration(registrationData) {
+//   return await axios.post(
+//     `http://localhost:8000/api/register`,
+//     registrationData
+//   );
+// }
 export async function onForgotPassword(forgotdata) {
   return await axios.post(
     "http://localhost:8000/api/forgotpassword",

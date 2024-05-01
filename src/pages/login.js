@@ -6,6 +6,7 @@ import { FaUser, FaLock } from "react-icons/fa";
 import "./login.css";
 import { Link } from "react-router-dom";
 import crudData from "../config/apiService";
+import logo from "../components/img/IMG_20240219_090620519_HDR.jpg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await crudData('/login', 'POST', values, 'authEngine')
+      await crudData("/login", "POST", values, "authEngine");
       dispatch(authenticateUser());
       localStorage.setItem("isAuth", "true");
     } catch (error) {

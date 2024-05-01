@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { onRegistration } from "../api/auth";
+// import { onRegistration } from "../api/auth";
 import Layout from "../components/layout";
 import "./register.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import logo from "../components/img/IMG_20240219_090620519_HDR.jpg";
+import crudData from "../config/apiService";
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -23,13 +24,13 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const { data } = await onRegistration(values);
+      const data = await crudData("/register", "POST", values, "authEngine");
 
       setError("");
-      setSuccess(data.message);
+      setSuccess(data.message.message);
       setValues({ email: "", password: "", name: "", phone: "" });
     } catch (error) {
-      setError(error.response.data.errors[0].msg);
+      setError(error.message);
       setSuccess("");
     }
   };

@@ -6,7 +6,10 @@ import {
   Outlet,
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
+import Students from "./pages/viewstudents";
 import Home from "./pages/home";
+
+import Batches from "./pages/viewbatches";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -29,10 +32,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
 
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/view-students" element={<Students />} />
+          <Route path="/view-batches" element={<Batches />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>
