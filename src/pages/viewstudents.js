@@ -14,6 +14,7 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import crudData from "../config/apiService";
 import axios from "axios";
+import UserData from "../components/UserData";
 axios.defaults.withCredentials = true;
 
 const ViewStudents = () => {
@@ -89,6 +90,8 @@ const ViewStudents = () => {
         "studentEngine"
       );
       console.log(data.message.users);
+      // const { stdata } = data.message.users;
+      setStudentsData(data.message.users);
     } catch (error) {
       console.error("Error fetching Students: ", error);
     }
@@ -114,7 +117,7 @@ const ViewStudents = () => {
             padding: "16px",
             justifyContent: "center",
             width: "100%",
-            maxWidth: "90vw",
+            maxWidth: "100vw",
             margin: "0 9vw 0 9vw",
           }}
         >
@@ -163,6 +166,19 @@ const ViewStudents = () => {
             Submit
           </Button>
         </Box>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <UserData users={StudentsData} />
+          </tbody>
+        </table>
       </DashLayout>
     </div>
   );

@@ -4,3 +4,36 @@ body {
 }
 
 
+table {
+    width: 100%;
+    margin: 5vw 9vw;
+    border-radius:0;
+    border: 1rem hidden #443C68;
+    border-collapse: collapse;
+    box-shadow: 0 0 0 1px black;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  
+  li, p, a, td{
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  thead {
+    font-size: 1.3rem;
+    background-color: #443C68;
+    color: #fff;
+  }
+  
+  th,
+  td {
+    border: 1px solid #443C68;
+    min-width: 10rem;
+    padding: 1.5rem;
+    line-height: 1.7;
+  }
+  
+  td {
+    font-size: 0.8rem;
+  }
