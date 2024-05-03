@@ -6,7 +6,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
-import Students from "./pages/viewstudents";
+import Students from "./pages/viewStudents/viewstudents";
 import Home from "./pages/home";
 
 import Batches from "./pages/viewbatches";
