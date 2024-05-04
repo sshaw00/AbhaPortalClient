@@ -41,6 +41,7 @@ const ViewStudents = () => {
     } catch (error) {}
   };
 
+  const [success, setSuccess] = useState(false);
   const [batchesData, setBatchesData] = useState([]);
   const [centresData, setCentresData] = useState([]);
   const [values, setValues] = useState({
@@ -104,18 +105,22 @@ const ViewStudents = () => {
       console.log(values.name);
       console.log(values.contact);
       console.log(values.address);
+      const requestData = {
+        ...values,
+        centre: centre,
+        batch: batch,
+      };
+      const data = await crudData(
+        "/add-students",
+        "POST",
+        requestData,
+        "studentEngine"
+      );
+      setSuccess(data.message.message);
+      console.log(data.message.users);
       setCentre(""); // Reset centre dropdown
       setBatch("");
       setValues({ studentId: "", name: "", contact: "", address: "" });
-
-      //   const data = await crudData(
-      //     "/add-students",
-      //     "POST",
-      //     { batch: batch },
-      //     "studentEngine"
-      //   );
-      //   setStudentsData(data.message.users);
-      //   console.log(data.message.users);
     } catch (error) {
       console.error("Error fetching Students: ", error);
     }
@@ -156,6 +161,7 @@ const ViewStudents = () => {
                 id="demo-centre-select"
                 value={centre}
                 label="Centre"
+                name="centre"
                 onChange={handleChangeCentre}
               >
                 {centresData.map((centre) => (
@@ -177,6 +183,7 @@ const ViewStudents = () => {
                   id="demo-batch-select"
                   value={batch}
                   label="Batch"
+                  name="batch"
                   onChange={handleChangeBatch}
                 >
                   {batchesData.map((option) => (
@@ -240,6 +247,12 @@ const ViewStudents = () => {
             >
               Submit
             </Button>
+            <div
+              className="error"
+              style={{ color: "green", margin: "10px 10px" }}
+            >
+              {success}
+            </div>
           </Box>
         </DashLayout>
       </div>
