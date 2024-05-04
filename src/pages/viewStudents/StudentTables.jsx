@@ -18,6 +18,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
+import ViewDocuments from '../../documents/ViewDocuments';
+import UploadDocuments from '../../documents/UploadDocuments';
 
 
 const columnHelper = createMRTColumnHelper();
@@ -47,12 +49,12 @@ const csvConfig = mkConfig({
 });
 
 
-const StudentTables = ({students,setStudents,centerId,batchId}) => {
+const StudentTables = ({ students, setStudents, centerId, batchId }) => {
   const [validationErrors, setValidationErrors] = useState({});
-  const [isPerformingAction,setIsPerformingAction] = useState(false);
-  const [apiResponse,setApiResponse] = useState({
-    succes:false,
-    response:""
+  const [isPerformingAction, setIsPerformingAction] = useState(false);
+  const [apiResponse, setApiResponse] = useState({
+    succes: false,
+    response: ""
   })
 
   const handleExportRows = (rows) => {
@@ -155,7 +157,7 @@ const StudentTables = ({students,setStudents,centerId,batchId}) => {
 
   const table = useMaterialReactTable({
     columns,
-    data : students,
+    data: students,
     createDisplayMode: 'modal',
     editDisplayMode: 'modal',
     enableEditing: true,
@@ -164,11 +166,12 @@ const StudentTables = ({students,setStudents,centerId,batchId}) => {
     paginationDisplayMode: 'pages',
     positionToolbarAlertBanner: 'bottom',
     getRowId: (row) => row.id,
+    positionActionsColumn: 'last',
     muiToolbarAlertBannerProps: false
       ? {
-          color: 'error',
-          children: 'Error loading data',
-        }
+        color: 'error',
+        children: 'Error loading data',
+      }
       : undefined,
     muiTableContainerProps: {
       sx: {
@@ -207,6 +210,8 @@ const StudentTables = ({students,setStudents,centerId,batchId}) => {
     ),
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
+        <ViewDocuments selectedStudent={row.original} />
+        <UploadDocuments selectedStudent={row.original} />
         <Tooltip title="Edit">
           <IconButton onClick={() => table.setEditingRow(row)}>
             <EditIcon />
@@ -221,54 +226,54 @@ const StudentTables = ({students,setStudents,centerId,batchId}) => {
     ),
     renderTopToolbarCustomActions: ({ table }) => (
       <Box
-      sx={{
-        display: 'flex',
-        gap: '16px',
-        padding: '8px',
-        flexWrap: 'wrap',
-      }}
-    >
-      <Button
-        variant="contained"
-        onClick={() => {
-          table.setCreatingRow(true);
+        sx={{
+          display: 'flex',
+          gap: '16px',
+          padding: '8px',
+          flexWrap: 'wrap',
         }}
       >
-        Create New User
-      </Button>
-   
-      <Button
-        onClick={handleExportData}
-        startIcon={<FileDownloadIcon />}
-      >
-        Export All Data
-      </Button>
-      <Button
-        disabled={table.getPrePaginationRowModel().rows.length === 0}
-        onClick={() =>
-          handleExportRows(table.getPrePaginationRowModel().rows)
-        }
-        startIcon={<FileDownloadIcon />}
-      >
-        Export All Rows
-      </Button>
-      <Button
-        disabled={table.getRowModel().rows.length === 0}
-        onClick={() => handleExportRows(table.getRowModel().rows)}
-        startIcon={<FileDownloadIcon />}
-      >
-        Export Page Rows
-      </Button>
-      <Button
-        disabled={
-          !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
-        }
-        onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
-        startIcon={<FileDownloadIcon />}
-      >
-        Export Selected Rows
-      </Button>
-    </Box>),
+        <Button
+          variant="contained"
+          onClick={() => {
+            table.setCreatingRow(true);
+          }}
+        >
+          Create New User
+        </Button>
+
+        <Button
+          onClick={handleExportData}
+          startIcon={<FileDownloadIcon />}
+        >
+          Export All Data
+        </Button>
+        <Button
+          disabled={table.getPrePaginationRowModel().rows.length === 0}
+          onClick={() =>
+            handleExportRows(table.getPrePaginationRowModel().rows)
+          }
+          startIcon={<FileDownloadIcon />}
+        >
+          Export All Rows
+        </Button>
+        <Button
+          disabled={table.getRowModel().rows.length === 0}
+          onClick={() => handleExportRows(table.getRowModel().rows)}
+          startIcon={<FileDownloadIcon />}
+        >
+          Export Page Rows
+        </Button>
+        <Button
+          disabled={
+            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+          }
+          onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
+          startIcon={<FileDownloadIcon />}
+        >
+          Export Selected Rows
+        </Button>
+      </Box>),
     state: {
       isLoading: false,
       isSaving: false,
@@ -277,40 +282,40 @@ const StudentTables = ({students,setStudents,centerId,batchId}) => {
     },
   });
 
-  return (students.length>0 && <MaterialReactTable table={table} />);
+  return (<MaterialReactTable table={table} />);
 };
 
 // swarup
 async function createStudent(values) {
-//set is performing state true
-//call crud data 
-//if successfull update the set students state by the api call bring the centerid and batch id through props and call the api
-//make a snackbar with the apis response
+  //set is performing state true
+  //call crud data 
+  //if successfull update the set students state by the api call bring the centerid and batch id through props and call the api
+  //make a snackbar with the apis response
 }
 
 
 // swarup
 async function updateStudent(values) {
-//set is performing state true
-//call crud data 
-//if successfull update the set students state 
-//use below logic
-// setStudents(['students'], (prevUsers) =>
-//         prevUsers?.filter((user) => user.id !== userId),
-//       );
-//make a snackbar with the apis response
+  //set is performing state true
+  //call crud data 
+  //if successfull update the set students state 
+  //use below logic
+  // setStudents(['students'], (prevUsers) =>
+  //         prevUsers?.filter((user) => user.id !== userId),
+  //       );
+  //make a snackbar with the apis response
 }
 
 // swarup
 async function deleteStudent(studentID) {
-//set is performing state true
-//call crud data 
-//if successfull update the set students state 
-//use below logic
-// setStudents(['students'], (prevUsers) =>
-//         prevUsers?.filter((user) => user.id !== userId),
-//       );
-//make a snackbar with the apis response
+  //set is performing state true
+  //call crud data 
+  //if successfull update the set students state 
+  //use below logic
+  // setStudents(['students'], (prevUsers) =>
+  //         prevUsers?.filter((user) => user.id !== userId),
+  //       );
+  //make a snackbar with the apis response
 }
 
 export default StudentTables;
