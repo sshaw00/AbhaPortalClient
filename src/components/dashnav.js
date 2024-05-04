@@ -99,13 +99,25 @@ export default function PersistentDrawerLeft() {
   const closeStudentMenu1 = () => {
     setStudentMenuAnchor(null);
     setOpen(false);
+    navigate("/add-students");
+  };
+
+  const closeStudentMenu2 = () => {
+    setStudentMenuAnchor(null);
+    setOpen(false);
     navigate("/view-students");
   };
   const closeStudentMenu = () => {
     setStudentMenuAnchor(null);
     setOpen(false);
+    // navigate("/view-students");
   };
 
+  const closeStudentMenu3 = () => {
+    setStudentMenuAnchor(null);
+    setOpen(false);
+    // navigate("/view-students");
+  };
   const openBatchMenu = (event) => {
     setBatchMenuAnchor(event.currentTarget);
   };
@@ -223,9 +235,9 @@ export default function PersistentDrawerLeft() {
               onClose={closeStudentMenu}
             >
               {/* Add your dropdown menu items for students */}
-              <MenuItem onClick={closeStudentMenu}>New Student</MenuItem>
-              <MenuItem onClick={closeStudentMenu1}>View Students</MenuItem>
-              <MenuItem onClick={closeStudentMenu}>Upload DOcuments</MenuItem>
+              <MenuItem onClick={closeStudentMenu1}>New Student</MenuItem>
+              <MenuItem onClick={closeStudentMenu2}>View Students</MenuItem>
+              <MenuItem onClick={closeStudentMenu3}>Upload DOcuments</MenuItem>
             </Menu>
           </ListItem>
           <ListItem disablePadding>

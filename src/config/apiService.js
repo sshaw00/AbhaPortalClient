@@ -67,19 +67,23 @@ const crudData = async (apiEndpoint, method, payload, engine) => {
       url: finalUrl,
       data: payload,
     });
+
     let responseData;
     try {
       responseData = JSON.parse(response.data);
     } catch (error) {
       responseData = response.data;
     }
+
     if (response.status !== 200) {
       throw new Error(responseData);
     }
     return { status: response.status, message: responseData };
     // }
   } catch (err) {
-    if (
+    if (err.response && err.response.status === 404) {
+      throw new Error("No data found for the specified Centre");
+    } else if (
       err.response &&
       err.response.data &&
       err.response.data.errors &&

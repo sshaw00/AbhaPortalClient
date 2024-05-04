@@ -6,9 +6,9 @@ import {
   Outlet,
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
-import Students from "./pages/viewStudents/viewstudents";
+import Students from "./pages/Students/viewstudents";
 import Home from "./pages/home";
-
+import AddStudents from "./pages/Students/addStudents";
 import Batches from "./pages/viewbatches";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -38,6 +38,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/view-students" element={<Students />} />
           <Route path="/view-batches" element={<Batches />} />
+          <Route path="/add-students" element={<AddStudents />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>
