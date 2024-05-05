@@ -18,6 +18,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { mkConfig, generateCsv, download } from "export-to-csv";
+import ViewDocuments from "../../documents/ViewDocuments";
+import UploadDocuments from "../../documents/UploadDocuments";
 
 const columnHelper = createMRTColumnHelper();
 const columns = [
@@ -161,6 +163,7 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
     paginationDisplayMode: "pages",
     positionToolbarAlertBanner: "bottom",
     getRowId: (row) => row.id,
+    positionActionsColumn: "last",
     muiToolbarAlertBannerProps: false
       ? {
           color: "error",
@@ -204,6 +207,8 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
     ),
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
+        <ViewDocuments selectedStudent={row.original} />
+        <UploadDocuments selectedStudent={row.original} />
         <Tooltip title="Edit">
           <IconButton onClick={() => table.setEditingRow(row)}>
             <EditIcon />
@@ -221,7 +226,7 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
         sx={{
           display: "flex",
           gap: "16px",
-          padding: "  8px",
+          padding: "8px",
           flexWrap: "wrap",
         }}
       >
@@ -272,7 +277,7 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
     },
   });
 
-  return students.length > 0 && <MaterialReactTable table={table} />;
+  return <MaterialReactTable table={table} />;
 };
 
 // swarup
