@@ -43,7 +43,11 @@ const crudData = async (apiEndpoint, method, payload, engine) => {
   };
   const baseAddress =
     (engine && baseAddressTypes[engine]) || config.baseAddress;
-  let finalUrl = config.serverURL + baseAddress + apiEndpoint;
+
+  let finalUrl =
+    engine && baseAddressTypes[engine]
+      ? config.serverURL + baseAddress + apiEndpoint
+      : baseAddress + apiEndpoint;
   // let accessToken = Cookies.get('x-auth');
   try {
     // if (!accessToken || tokenExpired(accessToken)) {
@@ -62,6 +66,7 @@ const crudData = async (apiEndpoint, method, payload, engine) => {
     // } else {
     //     headers['Content-Type'] = 'application/json';
     // }
+    console.log(finalUrl, method);
     const response = await axios({
       method,
       url: finalUrl,
@@ -82,7 +87,7 @@ const crudData = async (apiEndpoint, method, payload, engine) => {
     // }
   } catch (err) {
     if (err.response && err.response.status === 404) {
-      throw new Error("No data found for the specified Centre");
+      throw new Error(err.response.data.message);
     } else if (
       err.response &&
       err.response.data &&

@@ -20,12 +20,22 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import ViewDocuments from "../../documents/ViewDocuments";
 import UploadDocuments from "../../documents/UploadDocuments";
+import crudData from "../../config/apiService";
+import axios from "axios";
 
 const columnHelper = createMRTColumnHelper();
 const columns = [
-  columnHelper.accessor("batch_id", {
-    header: "Batch Id",
-    size: 40,
+  columnHelper.accessor("student_id", {
+    header: "Student ID",
+    size: 60,
+  }),
+  columnHelper.accessor("centre_name", {
+    header: "Centre Name",
+    size: 60,
+  }),
+  columnHelper.accessor("batch_name", {
+    header: "Batch Name",
+    size: 60,
   }),
   columnHelper.accessor("name", {
     header: "Full Name",
@@ -69,8 +79,20 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "batch_id",
-        header: "Batch Id",
+        accessorKey: "student_id",
+        header: "Student ID",
+        enableEditing: false,
+        size: 40,
+      },
+      {
+        accessorKey: "centre_name",
+        header: "Centre Name",
+        enableEditing: false,
+        size: 80,
+      },
+      {
+        accessorKey: "batch_name",
+        header: "Batch Name",
         enableEditing: false,
         size: 80,
       },
@@ -121,7 +143,7 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
     [validationErrors]
   );
 
-  //CREATE action
+  // CREATE action
   const handleCreateUser = async ({ values, table }) => {
     const newValidationErrors = validateUser(values);
     if (Object.values(newValidationErrors).some((error) => error)) {
@@ -135,6 +157,7 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
 
   //UPDATE action
   const handleSaveUser = async ({ values, table }) => {
+    console.log(values);
     const newValidationErrors = validateUser(values);
     if (Object.values(newValidationErrors).some((error) => error)) {
       setValidationErrors(newValidationErrors);
@@ -148,7 +171,8 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
   //DELETE action
   const openDeleteConfirmModal = (row) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      deleteStudent(row.original.id);
+      console.log(row.original);
+      deleteStudent(row.original.student_id, row.original.batch_id);
     }
   };
 
@@ -230,14 +254,14 @@ const StudentTables = ({ students, setStudents, centerId, batchId }) => {
           flexWrap: "wrap",
         }}
       >
-        <Button
+        {/* <Button
           variant="contained"
           onClick={() => {
             table.setCreatingRow(true);
           }}
         >
           Create New User
-        </Button>
+        </Button> */}
 
         <Button onClick={handleExportData} startIcon={<FileDownloadIcon />}>
           Export All Data
@@ -298,18 +322,48 @@ async function updateStudent(values) {
   //         prevUsers?.filter((user) => user.id !== userId),
   //       );
   //make a snackbar with the apis response
+  console.log(values);
+  try {
+    const data = await crudData(
+      "/update-student",
+      "POST",
+      {
+        name: values.name,
+        contact: values.contact,
+        address: values.address,
+        student_id: values.student_id,
+      },
+      "studentEngine"
+    );
+    // setStudents(data.message.users);
+
+    // console.log(data.message);
+    // Filter the batches based on the selected centre
+  } catch (error) {
+    console.log(error);
+    console.error(error);
+  }
 }
 
 // swarup
-async function deleteStudent(studentID) {
-  //set is performing state true
-  //call crud data
-  //if successfull update the set students state
-  //use below logic
-  // setStudents(['students'], (prevUsers) =>
-  //         prevUsers?.filter((user) => user.id !== userId),
-  //       );
-  //make a snackbar with the apis response
+async function deleteStudent(studentID, batchID) {
+  // event.preventDefault();
+  console.log(studentID, batchID);
+  try {
+    const data = await crudData(
+      "/delete-student",
+      "POST",
+      { studentID: studentID, batchID: batchID },
+      "studentEngine"
+    );
+    <StudentTables students={data.message.users} />;
+
+    // console.log(data.message);
+    // Filter the batches based on the selected centre
+  } catch (error) {
+    console.log(error);
+    console.error(error);
+  }
 }
 
 export default StudentTables;
@@ -324,11 +378,9 @@ const validateEmail = (email) =>
     );
 
 function validateUser(user) {
+  console.log(user.name);
   return {
-    firstName: !validateRequired(user.firstName)
-      ? "First Name is Required"
-      : "",
-    lastName: !validateRequired(user.lastName) ? "Last Name is Required" : "",
-    email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
+    name: !validateRequired(user.name) ? "Full Name is Required" : "",
+    // email: !validateEmail(user.email) ? "Incorrect Email Format" : "",
   };
 }

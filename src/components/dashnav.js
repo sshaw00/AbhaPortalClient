@@ -122,11 +122,23 @@ export default function PersistentDrawerLeft() {
     setBatchMenuAnchor(event.currentTarget);
   };
 
-  const closeBatchMenu = () => {
+  const closeBatchMenu1 = () => {
+    setBatchMenuAnchor(null);
+    setOpen(false);
+    navigate("/add-batches");
+  };
+
+  const closeBatchMenu2 = () => {
     setBatchMenuAnchor(null);
     setOpen(false);
     navigate("/view-batches");
   };
+
+  const closeBatchMenu = () => {
+    setBatchMenuAnchor(null);
+    setOpen(false);
+  };
+
   const dispatch = useDispatch();
   const logout = async () => {
     try {
@@ -237,7 +249,7 @@ export default function PersistentDrawerLeft() {
               {/* Add your dropdown menu items for students */}
               <MenuItem onClick={closeStudentMenu1}>New Student</MenuItem>
               <MenuItem onClick={closeStudentMenu2}>View Students</MenuItem>
-              <MenuItem onClick={closeStudentMenu3}>Upload DOcuments</MenuItem>
+              {/* <MenuItem onClick={closeStudentMenu3}>Upload DOcuments</MenuItem> */}
             </Menu>
           </ListItem>
           <ListItem disablePadding>
@@ -253,9 +265,9 @@ export default function PersistentDrawerLeft() {
               onClose={closeBatchMenu}
             >
               {/* Add your dropdown menu items for batches */}
-              <MenuItem onClick={closeBatchMenu}>New Batch</MenuItem>
-              <MenuItem onClick={closeBatchMenu}>View Batches</MenuItem>
-              <MenuItem onClick={closeBatchMenu}>Enroll Students</MenuItem>
+              <MenuItem onClick={closeBatchMenu1}>New Batch</MenuItem>
+              <MenuItem onClick={closeBatchMenu2}>View Batches</MenuItem>
+              {/* <MenuItem onClick={closeBatchMenu}>Enroll Students</MenuItem> */}
             </Menu>
           </ListItem>
           <ListItem disablePadding>

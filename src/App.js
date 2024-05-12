@@ -14,6 +14,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import AddBatches from "./pages/addbatches";
 import { useSelector } from "react-redux";
 
 const PrivateRoutes = () => {
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/view-students" element={<Students />} />
           <Route path="/view-batches" element={<Batches />} />
           <Route path="/add-students" element={<AddStudents />} />
+          <Route path="/add-batches" element={<AddBatches />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>

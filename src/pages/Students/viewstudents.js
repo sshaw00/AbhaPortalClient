@@ -87,12 +87,22 @@ const ViewStudents = () => {
     try {
       console.log(centre);
       console.log(batch);
-      const data = await crudData(
-        "/get-students",
-        "POST",
-        { batch: batch },
-        "studentEngine"
-      );
+      let data = "";
+      if (batch == "") {
+        data = await crudData(
+          "/get-students-by-centre",
+          "POST",
+          { centre: centre },
+          "studentEngine"
+        );
+      } else {
+        data = await crudData(
+          "/get-students",
+          "POST",
+          { batch: batch },
+          "studentEngine"
+        );
+      }
       setStudentsData(data.message.users);
       console.log(data.message.users);
     } catch (error) {
@@ -167,7 +177,7 @@ const ViewStudents = () => {
             <Button
               variant="contained"
               onClick={handleSubmit}
-              disabled={!centre || !batch}
+              disabled={!centre}
               sx={{ width: "100%" }}
             >
               Submit
@@ -175,9 +185,11 @@ const ViewStudents = () => {
           </Box>
         </DashLayout>
       </div>
-      <div style={{ padding: "20px" }}>
-        <StudentTables students={studentsData} />
-      </div>
+      {studentsData.length > 0 && (
+        <div style={{ padding: "20px" }}>
+          <StudentTables students={studentsData} />
+        </div>
+      )}
     </>
   );
 };

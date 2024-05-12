@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchProtectedInfo } from "../../api/auth";
-import Layout from "../../components/layout";
-import DashLayout from "../../components/dashlayout";
-import { unauthenticateUser } from "../../redux/slices/authSlice";
-import "../../pages/dash.css";
+import { fetchProtectedInfo } from "../api/auth";
+import Layout from "../components/layout";
+import DashLayout from "../components/dashlayout";
+import { unauthenticateUser } from "../redux/slices/authSlice";
+import "../pages/dash.css";
 import * as React from "react";
 import {
   Box,
@@ -16,12 +16,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import crudData from "../../config/apiService";
+import crudData from "../config/apiService";
 import axios from "axios";
-import StudentTables from "./StudentTables";
+// import StudentTables from "./StudentTables";
 axios.defaults.withCredentials = true;
 
-const AddStudents = () => {
+const AddBatches = () => {
   const [centre, setCentre] = React.useState("");
   const [batch, setBatch] = React.useState("");
   const [error, setError] = useState(false);
@@ -44,13 +44,10 @@ const AddStudents = () => {
   };
 
   const [success, setSuccess] = useState(false);
-  const [batchesData, setBatchesData] = useState([]);
   const [centresData, setCentresData] = useState([]);
   const [values, setValues] = useState({
-    studentId: "",
-    name: "",
-    contact: "",
-    address: "",
+    batch_id: "",
+    batch_name: "",
   });
 
   // Define a useEffect hook to fetch the data when the component mounts
@@ -67,7 +64,7 @@ const AddStudents = () => {
     fetchCentres();
   }, []);
 
-  const handleChangeCentre = async (event) => {
+  const handleChangeCentre = (event) => {
     const selectedCentre = centresData.find(
       (centre) => centre.centre_id === event.target.value
     );
@@ -75,37 +72,6 @@ const AddStudents = () => {
     setCentre({
       id: event.target.value,
       name: selectedCentre.name,
-    });
-
-    event.preventDefault();
-    try {
-      const data = await crudData(
-        "/get-batches",
-        "POST",
-        { centre: event.target.value },
-        "studentEngine"
-      );
-      setBatch("");
-      setError("");
-      // console.log(data.message.users);
-      // Filter the batches based on the selected centre
-      setBatchesData(data.message.users);
-    } catch (error) {
-      setBatchesData("");
-      setError(error.message);
-      setError2("");
-      console.error("Error fetching batches:", error);
-    }
-  };
-
-  const handleChangeBatch = (event) => {
-    const selectedBatch = batchesData.find(
-      (batch) => batch.batch_id === event.target.value
-    );
-
-    setBatch({
-      id: event.target.value,
-      name: selectedBatch.batch_name,
     });
   };
 
@@ -118,21 +84,16 @@ const AddStudents = () => {
     try {
       console.log(centre.id);
       console.log(centre.name);
-      console.log(batch.id);
-      console.log(batch.name);
-      console.log(values.studentId);
-      console.log(values.name);
-      console.log(values.contact);
-      console.log(values.address);
+      console.log(values.batch_id);
+      console.log(values.batch_name);
+
       const requestData = {
         ...values,
         centre_id: centre.id,
-        centre_name: centre.name,
-        batch_id: batch.id, // Include batch ID
-        batch_name: batch.name, // Include batch name
+        // centre_name: centre.name,
       };
       const data = await crudData(
-        "/add-students",
+        "/add-batches",
         "POST",
         requestData,
         "studentEngine"
@@ -141,10 +102,10 @@ const AddStudents = () => {
       setSuccess(data.message.message);
       // console.log(data.message.message);
       setCentre(""); // Reset centre dropdown
-      setBatch("");
-      setValues({ studentId: "", name: "", contact: "", address: "" });
+      setValues({ batch_id: "", batch_name: "" });
     } catch (error) {
       setError2(error.message);
+      setSuccess("");
       console.log(error.message);
     }
   };
@@ -175,7 +136,7 @@ const AddStudents = () => {
             }}
           >
             <Typography variant="h4" gutterBottom>
-              Add Student
+              Add Batch
             </Typography>
             <FormControl fullWidth sx={{ width: "100%" }}>
               <InputLabel id="demo-centre-select-label">Centre</InputLabel>
@@ -186,6 +147,7 @@ const AddStudents = () => {
                 label="Centre"
                 name="centre"
                 onChange={handleChangeCentre}
+                required
               >
                 {centresData.map((centre) => (
                   <MenuItem key={centre.id} value={centre.centre_id}>
@@ -194,11 +156,8 @@ const AddStudents = () => {
                 ))}
               </Select>
             </FormControl>
-            <div className="error" style={{ color: "red", margin: "5px 0px" }}>
-              {error}
-            </div>
 
-            {batchesData.length > 0 && (
+            {/* {batchesData.length > 0 && (
               <FormControl fullWidth sx={{ width: "100%" }}>
                 <InputLabel id="demo-batch-select-label">Batch</InputLabel>
                 <Select
@@ -216,56 +175,32 @@ const AddStudents = () => {
                   ))}
                 </Select>
               </FormControl>
-            )}
+            )} */}
 
-            {batchesData.length > 0 && (
-              <>
-                <TextField
-                  label="Student ID"
-                  variant="outlined"
-                  value={values.studentId}
-                  onChange={(e) => onChange(e)}
-                  name="studentId"
-                  fullWidth
-                />
-                <TextField
-                  label="Name"
-                  variant="outlined"
-                  value={values.name}
-                  onChange={(e) => onChange(e)}
-                  name="name"
-                  fullWidth
-                />
-                <TextField
-                  label="Contact"
-                  variant="outlined"
-                  value={values.contact}
-                  onChange={(e) => onChange(e)}
-                  name="contact"
-                  fullWidth
-                />
-                <TextField
-                  label="Address"
-                  variant="outlined"
-                  value={values.address}
-                  onChange={(e) => onChange(e)}
-                  name="address"
-                  fullWidth
-                />
-              </>
-            )}
+            <TextField
+              label="Batch ID"
+              placeholder="BH00X"
+              variant="outlined"
+              value={values.batch_id}
+              onChange={(e) => onChange(e)}
+              name="batch_id"
+              fullWidth
+              required
+            />
+            <TextField
+              label="Batch Name"
+              variant="outlined"
+              value={values.batch_name}
+              onChange={(e) => onChange(e)}
+              name="batch_name"
+              fullWidth
+              required
+            />
 
             <Button
               variant="contained"
               onClick={handleSubmit}
-              disabled={
-                !centre ||
-                !batch ||
-                !values.studentId ||
-                !values.name ||
-                !values.contact ||
-                !values.address
-              }
+              disabled={!centre || !values.batch_id || !values.batch_name}
               sx={{ width: "100%" }}
             >
               Submit
@@ -289,4 +224,4 @@ const AddStudents = () => {
   );
 };
 
-export default AddStudents;
+export default AddBatches;
