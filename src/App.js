@@ -15,6 +15,7 @@ import Register from "./pages/register";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import { useSelector } from "react-redux";
+import { SnackbarProvider} from 'notistack';
 
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -30,6 +31,7 @@ const RestrictedRoutes = () => {
 
 const App = () => {
   return (
+    <SnackbarProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -49,6 +51,7 @@ const App = () => {
         </Route>
       </Routes>
     </BrowserRouter>
+    </SnackbarProvider>
   );
 };
 
