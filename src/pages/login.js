@@ -7,9 +7,12 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import crudData from "../config/apiService";
 import logo from "../components/img/IMG_20240219_090620519_HDR.jpg";
+import { useSnackbar } from "notistack";
 
 const Login = () => {
   const dispatch = useDispatch();
+  // swarup
+  const {enqueueSnackbar} = useSnackbar()
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -26,8 +29,11 @@ const Login = () => {
       await crudData("/login", "POST", values, "authEngine");
       dispatch(authenticateUser());
       localStorage.setItem("isAuth", "true");
+      //swarup
+      enqueueSnackbar("Login Successful", { variant: "success" });
     } catch (error) {
       setError(error.message);
+      enqueueSnackbar("Login Failed", { variant: "error" });
     }
   };
 
