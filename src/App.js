@@ -15,8 +15,9 @@ import Register from "./pages/register";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AddBatches from "./pages/addbatches";
+import AddCentres from "./pages/addCentres";
 import { useSelector } from "react-redux";
-import { SnackbarProvider} from 'notistack';
+import { SnackbarProvider } from "notistack";
 
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -33,26 +34,30 @@ const RestrictedRoutes = () => {
 const App = () => {
   return (
     <SnackbarProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route element={<PrivateRoutes />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/view-students" element={<Students />} />
-          <Route path="/view-batches" element={<Batches />} />
-          <Route path="/add-students" element={<AddStudents />} />
-          <Route path="/add-batches" element={<AddBatches />} />
-        </Route>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/view-students" element={<Students />} />
+            <Route path="/view-batches" element={<Batches />} />
+            <Route path="/add-students" element={<AddStudents />} />
+            <Route path="/add-batches" element={<AddBatches />} />
+            <Route path="/add-centres" element={<AddCentres />} />
+          </Route>
 
-        <Route element={<RestrictedRoutes />}>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route element={<RestrictedRoutes />}>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route
+              path="/resetpassword/:id/:token"
+              element={<ResetPassword />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </SnackbarProvider>
   );
 };

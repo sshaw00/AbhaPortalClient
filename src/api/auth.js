@@ -13,17 +13,11 @@ axios.defaults.withCredentials = true;
 //     registrationData
 //   );
 // }
-export async function onForgotPassword(forgotdata) {
-  return await axios.post(
-    "http://localhost:8000/api/forgotpassword",
-    forgotdata
-  );
-}
 
-export async function onLogout() {
-  return await axios.get("http://localhost:8000/api/logout");
-}
+// export async function onLogout() {
+//   return await axios.get("http://localhost:8000/api/logout");
+// }
 
-export async function fetchProtectedInfo() {
-  return await axios.get("http://localhost:8000/api/protected");
-}
+// export async function fetchProtectedInfo() {
+//   return await axios.get("http://localhost:8000/api/protected");
+// }

@@ -8,6 +8,7 @@ import "./login.css";
 import logo from "../components/img/IMG_20240219_090620519_HDR.jpg";
 import Button from "@mui/material/Button";
 import { NavLink, Link } from "react-router-dom";
+import crudData from "../config/apiService";
 
 const ForgotPassword = () => {
   const [values, setValues] = useState({
@@ -24,13 +25,18 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const { data } = await onForgotPassword(values);
+      const data = await crudData(
+        "/forgotpassword",
+        "POST",
+        values,
+        "authEngine"
+      );
       setError("");
-      setSuccess(data.message);
+      setSuccess(data.message.message);
       setValues({ email: "" });
     } catch (error) {
-      console.log(error.response.data.errors[0].msg);
-      setError(error.response.data.errors[0].msg);
+      console.log(error.message);
+      setError(error.message);
       setSuccess("");
     }
   };

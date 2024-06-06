@@ -22,8 +22,6 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const AddBatches = () => {
-  const [centre, setCentre] = React.useState("");
-  const [batch, setBatch] = React.useState("");
   const [error, setError] = useState(false);
   const [error2, setError2] = useState(false);
 
@@ -33,6 +31,16 @@ const AddBatches = () => {
   const [loading, setLoading] = useState(true);
   const [protectedData, setProtectedData] = useState(true);
 
+  const logout = async () => {
+    try {
+      await crudData("/logout", "GET", "", "authEngine");
+
+      dispatch(unauthenticateUser());
+      localStorage.removeItem("isAuth");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   const protectedInfo = async () => {
     try {
       const data = await crudData("/protected", "GET", "", "authEngine");
@@ -41,40 +49,23 @@ const AddBatches = () => {
 
       setLoading(false);
     } catch (error) {
-      logout();
+      // logout();
     }
   };
-
+  const [centreType, setCentreType] = useState("");
   const [success, setSuccess] = useState(false);
   const [centresData, setCentresData] = useState([]);
   const [values, setValues] = useState({
-    batch_id: "",
-    batch_name: "",
+    number: "",
+    name: "",
+    address: "",
+    pocName: "",
+    pocPhone: "",
+    pocEmail: "",
   });
 
-  // Define a useEffect hook to fetch the data when the component mounts
-  useEffect(() => {
-    const fetchCentres = async () => {
-      try {
-        const rows = await crudData("/get-centres", "GET", "", "studentEngine");
-        // console.log(rows);
-        setCentresData(rows.message.users); // Update the state with the fetched data
-      } catch (error) {
-        console.error("Error fetching centres:", error);
-      }
-    };
-    fetchCentres();
-  }, []);
-
-  const handleChangeCentre = (event) => {
-    const selectedCentre = centresData.find(
-      (centre) => centre.centre_id === event.target.value
-    );
-
-    setCentre({
-      id: event.target.value,
-      name: selectedCentre.name,
-    });
+  const handleCentreTypeChange = (event) => {
+    setCentreType(event.target.value);
   };
 
   const onChange = (e) => {
@@ -84,21 +75,23 @@ const AddBatches = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(centre.id);
-      console.log(centre.name);
-      console.log(values.batch_id);
-      console.log(values.batch_name);
+      console.log(values.number);
+      console.log(values.name);
+      console.log(centreType);
+      console.log(values.address);
+      console.log(values.pocName);
+      console.log(values.pocPhone);
+      console.log(values.pocEmail);
 
       const requestData = {
         ...values,
-        centre_id: centre.id,
-        // centre_name: centre.name,
+        centre_type: centreType,
       };
       const data = await crudData(
-        "/add-batches",
+        "/add-centre",
         "POST",
         requestData,
-        "studentEngine"
+        "authEngine"
       );
       setError2("");
       setSuccess(data.message.message);
@@ -138,10 +131,10 @@ const AddBatches = () => {
             }}
           >
             <Typography variant="h4" gutterBottom>
-              Add Batch
+              Add New Centre
             </Typography>
             <FormControl fullWidth sx={{ width: "100%" }}>
-              <InputLabel id="demo-centre-select-label">Centre</InputLabel>
+              {/* <InputLabel id="demo-centre-select-label">Centre</InputLabel>
               <Select
                 labelId="demo-centre-select-label"
                 id="demo-centre-select"
@@ -156,7 +149,7 @@ const AddBatches = () => {
                     {centre.name}
                   </MenuItem>
                 ))}
-              </Select>
+              </Select> */}
             </FormControl>
 
             {/* {batchesData.length > 0 && (
@@ -180,29 +173,98 @@ const AddBatches = () => {
             )} */}
 
             <TextField
-              label="Batch ID"
-              placeholder="BH00X"
+              label="Centre ID"
+              placeholder="AAF00X"
               variant="outlined"
-              value={values.batch_id}
+              value={values.number}
               onChange={(e) => onChange(e)}
-              name="batch_id"
+              name="number"
               fullWidth
               required
             />
             <TextField
-              label="Batch Name"
+              label="Centre Name"
               variant="outlined"
-              value={values.batch_name}
+              value={values.name}
               onChange={(e) => onChange(e)}
-              name="batch_name"
+              name="name"
               fullWidth
               required
             />
 
+            <FormControl fullWidth sx={{ width: "100%" }}>
+              <InputLabel id="centre-type-label">Centre Type</InputLabel>
+              <Select
+                labelId="centre-type-label"
+                id="centre-type-select"
+                value={centreType}
+                label="Centre Type"
+                onChange={handleCentreTypeChange}
+                required
+              >
+                <MenuItem value="Abha Centre">Abha Centre</MenuItem>
+                <MenuItem value="Partner Centre">Partner Centre</MenuItem>
+              </Select>
+            </FormControl>
+
+            {centreType && (
+              <FormControl fullWidth sx={{ width: "100%" }}>
+                <TextField
+                  label="Centre Address"
+                  variant="outlined"
+                  value={values.address}
+                  onChange={onChange}
+                  name="address"
+                  fullWidth
+                  required
+                />
+              </FormControl>
+            )}
+
+            {centreType === "Partner Centre" && (
+              <>
+                <FormControl fullWidth sx={{ width: "100%" }}>
+                  <TextField
+                    label="POC Name"
+                    variant="outlined"
+                    value={values.pocName}
+                    onChange={onChange}
+                    name="pocName"
+                    fullWidth
+                    required
+                  />
+                </FormControl>
+
+                <FormControl fullWidth sx={{ width: "100%" }}>
+                  <TextField
+                    label="POC Phone"
+                    variant="outlined"
+                    value={values.pocPhone}
+                    onChange={onChange}
+                    name="pocPhone"
+                    fullWidth
+                    required
+                  />
+                </FormControl>
+
+                <FormControl fullWidth sx={{ width: "100%" }}>
+                  <TextField
+                    label="POC Email"
+                    variant="outlined"
+                    value={values.pocEmail}
+                    onChange={onChange}
+                    name="pocEmail"
+                    fullWidth
+                    required
+                  />
+                </FormControl>
+              </>
+            )}
+
             <Button
               variant="contained"
               onClick={handleSubmit}
-              disabled={!centre || !values.batch_id || !values.batch_name}
+              disabled={!values.name || !values.number || !values.address}
               sx={{ width: "100%" }}
             >
               Submit

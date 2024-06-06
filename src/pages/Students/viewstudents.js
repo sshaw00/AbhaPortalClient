@@ -29,12 +29,14 @@ const ViewStudents = () => {
 
   const protectedInfo = async () => {
     try {
-      const { data } = await fetchProtectedInfo();
+      const data = await crudData("/protected", "GET", "", "authEngine");
 
-      setProtectedData(data.info);
+      setProtectedData(data.message.info);
 
       setLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      logout();
+    }
   };
 
   const [batchesData, setBatchesData] = useState([]);

@@ -66,7 +66,7 @@ const crudData = async (apiEndpoint, method, payload, engine) => {
     // } else {
     //     headers['Content-Type'] = 'application/json';
     // }
-    console.log(finalUrl, method);
+    // console.log(finalUrl, method);
     const response = await axios({
       method,
       url: finalUrl,

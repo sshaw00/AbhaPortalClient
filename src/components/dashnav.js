@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Tooltip from "@mui/material/Tooltip";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import {
@@ -20,20 +21,17 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import MailIcon from "@mui/icons-material/Mail";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import SchoolIcon from "@mui/icons-material/School";
+import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../components/img/logo-new-draft.png";
 import "./dashnav.css";
 import { unauthenticateUser } from "../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
-import { onLogout } from "../api/auth";
-import Button from "@mui/material/Button";
-import LogoutIcon from "@mui/icons-material/Logout";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import SchoolIcon from "@mui/icons-material/School";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import crudData from "../config/apiService";
 
 const drawerWidth = 240;
 
@@ -83,17 +81,30 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
-  const [studentMenuAnchor, setStudentMenuAnchor] = useState(null);
-  const [batchMenuAnchor, setBatchMenuAnchor] = useState(null);
+  const [studentMenuAnchor, setStudentMenuAnchor] = React.useState(null);
+  const [centreMenuAnchor, setCentreMenuAnchor] = React.useState(null);
+  const [batchMenuAnchor, setBatchMenuAnchor] = React.useState(null);
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open1 = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-  const openDashboard = (event) => {
+  const openDashboard = () => {
     setOpen(false);
     navigate("/dashboard");
   };
 
   const openStudentMenu = (event) => {
     setStudentMenuAnchor(event.currentTarget);
+  };
+
+  const openCentreMenu = (event) => {
+    setCentreMenuAnchor(event.currentTarget);
   };
 
   const closeStudentMenu1 = () => {
@@ -107,17 +118,29 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
     navigate("/view-students");
   };
+
   const closeStudentMenu = () => {
     setStudentMenuAnchor(null);
     setOpen(false);
-    // navigate("/view-students");
   };
 
-  const closeStudentMenu3 = () => {
-    setStudentMenuAnchor(null);
+  const closeCentreMenu = () => {
+    setCentreMenuAnchor(null);
     setOpen(false);
-    // navigate("/view-students");
   };
+
+  const closeCentreMenu1 = () => {
+    setCentreMenuAnchor(null);
+    setOpen(false);
+    navigate("/add-centres");
+  };
+
+  const closeCentreMenu2 = () => {
+    setCentreMenuAnchor(null);
+    setOpen(false);
+    navigate("/view-centres");
+  };
+
   const openBatchMenu = (event) => {
     setBatchMenuAnchor(event.currentTarget);
   };
@@ -142,14 +165,15 @@ export default function PersistentDrawerLeft() {
   const dispatch = useDispatch();
   const logout = async () => {
     try {
-      await onLogout();
+      await crudData("/logout", "GET", "", "authEngine");
 
       dispatch(unauthenticateUser());
       localStorage.removeItem("isAuth");
     } catch (error) {
-      console.log(error.response);
+      console.log(error.message);
     }
   };
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -176,7 +200,70 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <img src={logo} className="img" alt="Background-Pic" />
+          <Box sx={{ flexGrow: 1 }} />
+          <Box
+            sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
+          >
+            <Tooltip title="Account settings">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open1 ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open1 ? "true" : undefined}
+              >
+                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Toolbar>
+        <Menu
+          anchorEl={anchorEl}
+          id="account-menu"
+          open={open1}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 1.5,
+              "& .MuiAvatar-root": {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              "&::before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+                zIndex: 0,
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
+          <MenuItem onClick={handleClose}>
+            <ListItem disablePadding>
+              <ListItemButton onClick={logout}>
+                <ListItemIcon>
+                  <LogoutIcon />
+                </ListItemIcon>
+                Logout
+              </ListItemButton>
+            </ListItem>
+          </MenuItem>
+        </Menu>
       </AppBar>
       <Drawer
         sx={{
@@ -201,28 +288,6 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        {/* <List>
-          {["Dashboard", "Logout", "Students", "Batches"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <DashboardIcon /> : <LogoutIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    text === "Logout" ? (
-                      <Button variant="text" onClick={logout}>
-                        Logout
-                      </Button>
-                    ) : (
-                      <Button variant="text">{text}</Button>
-                    )
-                  }
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
         <List>
           <ListItem disablePadding>
             <ListItemButton>
@@ -231,6 +296,24 @@ export default function PersistentDrawerLeft() {
               </ListItemIcon>
               <ListItemText primary="Dashboard" onClick={openDashboard} />
             </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={openCentreMenu}>
+              <ListItemIcon>
+                <PeopleAltIcon />
+              </ListItemIcon>
+              <ListItemText primary="Centres" />
+            </ListItemButton>
+
+            <Menu
+              anchorEl={centreMenuAnchor}
+              open={Boolean(centreMenuAnchor)}
+              onClose={closeCentreMenu}
+            >
+              <MenuItem onClick={closeCentreMenu1}>New Centre</MenuItem>
+              <MenuItem onClick={closeCentreMenu2}>View Centres</MenuItem>
+            </Menu>
           </ListItem>
 
           <ListItem disablePadding>
@@ -246,10 +329,8 @@ export default function PersistentDrawerLeft() {
               open={Boolean(studentMenuAnchor)}
               onClose={closeStudentMenu}
             >
-              {/* Add your dropdown menu items for students */}
               <MenuItem onClick={closeStudentMenu1}>New Student</MenuItem>
               <MenuItem onClick={closeStudentMenu2}>View Students</MenuItem>
-              {/* <MenuItem onClick={closeStudentMenu3}>Upload DOcuments</MenuItem> */}
             </Menu>
           </ListItem>
           <ListItem disablePadding>
@@ -264,34 +345,12 @@ export default function PersistentDrawerLeft() {
               open={Boolean(batchMenuAnchor)}
               onClose={closeBatchMenu}
             >
-              {/* Add your dropdown menu items for batches */}
               <MenuItem onClick={closeBatchMenu1}>New Batch</MenuItem>
               <MenuItem onClick={closeBatchMenu2}>View Batches</MenuItem>
-              {/* <MenuItem onClick={closeBatchMenu}>Enroll Students</MenuItem> */}
             </Menu>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={logout}>
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </ListItemButton>
           </ListItem>
         </List>
         <Divider />
-        {/* <List>
-          {[].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

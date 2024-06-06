@@ -8,10 +8,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import crudData from "../config/apiService";
+
 import "./nav.css";
 
 import { useDispatch } from "react-redux";
-import { onLogout } from "../api/auth";
+
 import { unauthenticateUser } from "../redux/slices/authSlice";
 
 const Navbar = () => {
@@ -20,15 +22,14 @@ const Navbar = () => {
 
   const logout = async () => {
     try {
-      await onLogout();
+      await crudData("/logout", "GET", "", "authEngine");
 
       dispatch(unauthenticateUser());
       localStorage.removeItem("isAuth");
     } catch (error) {
-      console.log(error.response);
+      console.log(error.message);
     }
   };
-
   return (
     <header>
       <nav className="navbar bg-light">

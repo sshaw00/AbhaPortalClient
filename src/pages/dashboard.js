@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchProtectedInfo, onLogout } from "../api/auth";
 import Layout from "../components/layout";
 import DashLayout from "../components/dashlayout";
 import { unauthenticateUser } from "../redux/slices/authSlice";
 import "./dash.css";
+import crudData from "../config/apiService";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -13,20 +13,20 @@ const Dashboard = () => {
 
   const logout = async () => {
     try {
-      await onLogout();
+      await crudData("/logout", "GET", "", "authEngine");
 
       dispatch(unauthenticateUser());
       localStorage.removeItem("isAuth");
     } catch (error) {
-      console.log(error.response);
+      console.log(error.message);
     }
   };
 
   const protectedInfo = async () => {
     try {
-      const { data } = await fetchProtectedInfo();
+      const data = await crudData("/protected", "GET", "", "authEngine");
 
-      setProtectedData(data.info);
+      setProtectedData(data.message.info);
 
       setLoading(false);
     } catch (error) {
