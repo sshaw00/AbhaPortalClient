@@ -96,8 +96,15 @@ const AddBatches = () => {
       setError2("");
       setSuccess(data.message.message);
       // console.log(data.message.message);
-      setCentre(""); // Reset centre dropdown
-      setValues({ batch_id: "", batch_name: "" });
+      setCentreType(""); // Reset centre dropdown
+      setValues({
+        name: "",
+        number: "",
+        address: "",
+        pocName: "",
+        pocEmail: "",
+        pocPhone: "",
+      });
     } catch (error) {
       setError2(error.message);
       setSuccess("");
